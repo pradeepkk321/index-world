@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.pk.indexworld.indexer.ChatBot;
 import com.pk.indexworld.indexer.IndexerNew;
 import com.pk.indexworld.indexer.models.Schema;
 
+@CrossOrigin
 @RestController
 public class IndexController {
 
@@ -74,8 +76,9 @@ public class IndexController {
 	}
 
 	@GetMapping("/{collection}/search")
-	public Map searchData(@PathVariable String collection, @RequestParam String query, @RequestParam(required = false) Integer pageNo, @RequestParam(required = false)Integer pageSize) {
-		
+	public Map searchData(@PathVariable String collection, @RequestParam String query,
+			@RequestParam(required = false) Integer pageNo, @RequestParam(required = false) Integer pageSize) {
+
 		return IndexerNew.seach(collection, query, pageNo, pageSize);
 	}
 	

@@ -1,0 +1,55 @@
+.Collections {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    // grid-column-gap: 10px;
+    background-color: #CBE5F1;
+    min-height: 100%;
+    // padding: 0px 0px 0px 20px;
+    // padding: 60px 0px 0px 0px;
+    // max-width: 1200px;
+    // margin: 0 auto;
+    // background-color: #E6EEF3;
+    // height: 650px;
+
+    .collection-col-1 {
+        // padding: 0px 10px;
+        overflow: hidden; 
+    }
+
+    .collections-title {
+        padding: 20px 30px;
+        // border-bottom: 1px solid #0b9bbc ;
+        // border-bottom: 1px solid blue;
+        // justify-self: start;
+    }
+
+    .collection-list-item {
+        border-bottom: 1px solid #fff;
+        cursor: pointer;
+        // border-bottom: 1px solid #274E61;
+
+        :hover,
+        :active {
+            border-bottom: 1px solid #F2F7F9;
+            background-color: #274E61;
+            color: white;
+        }
+
+        p {
+            padding: 10px 30px;
+        }
+
+    }
+
+    .collection-list-item-active {
+        cursor: pointer;
+        border-bottom: 1px solid #F2F7F9;
+        background-color: #274E61;
+        color: white;
+
+        p {
+            padding: 10px 30px;
+        }
+    }
+
+}

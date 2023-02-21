@@ -40,7 +40,7 @@ public class IndexerNew {
 	public static Map<String, Collection> database = new HashMap<>();
 	
 	// file system to store and retrieve data in case of restart
-	private static final String filepath="D:\\My Workspace\\Java\\Local\\index-world\\files\\index-world5.json";
+	private static final String filepath="D:\\Personal\\Projects\\index-world\\backup\\index-world-backup.json";
 	
 	// static block to load the data on start up
 	static {
@@ -81,7 +81,8 @@ public class IndexerNew {
 			Schema schema = collection.getSchema();
 			Map<String, HashMap<String, Integer>> indexesWithWordCount = collection.getIndexesWithWordCount();
 			
-			String documentId = document.get(schema.getIdField()).toString();
+			String documentId = document.get(schema.getIdField()).toString(); // + "-4";
+//			document.put(schema.getIdField(), documentId);
 			
 			// If the document already present in the database remove all the old indexes as
 			// the new document may not contain all the words in the previous version.
@@ -109,6 +110,13 @@ public class IndexerNew {
 	
 	public static Map seach(String collectionName, String searchQuery, Integer pageNo, Integer pageSize) {
 		
+		if(pageNo == null || pageNo != null && pageNo <= 0) {
+			pageNo = 1;
+		}
+		if(pageSize == null || pageSize != null && pageSize <= 0) {
+			pageSize = 10;
+		}
+		
 		boolean queryModified = false;
 		StringBuilder actualQuery = new StringBuilder();
 		
@@ -134,12 +142,59 @@ public class IndexerNew {
 		        int totalRecords = 0;
 
 				if (searchQuery.equals("*")) {
-					for (String id : documents.keySet()) {
-						result.add((Map) documents.get(id));
-					}
-					
+//					for (String id : documents.keySet()) {
+//						result.add((Map) documents.get(id));
+//					}
+//					
 //					result.addAll(documents.keySet());
-					totalRecords = result.size();
+					totalRecords = documents.keySet().size();
+					
+					
+					
+					
+				    int startIndex = 0;
+			        int endIndex = totalRecords;
+
+			        if(pageNo != null && pageNo > 0 && pageSize != null && pageSize > 0) {
+			        	
+			        	startIndex = (pageNo - 1) * pageSize;
+			        	endIndex = startIndex + pageSize;
+			        	
+						int totalPages = totalRecords % pageSize == 0 ? totalRecords / pageSize
+								: totalRecords / pageSize + 1;
+						boolean isFirstPage = pageNo == 1;
+						boolean isLastPage = endIndex >= totalRecords;
+						
+						if(!isFirstPage) {
+							String 	prev = "/" + collectionName + "/search?query=" + searchQuery + "&pageNo=" + (pageNo-1) + "&pageSize=" +pageSize;	
+							metaData.put("prev", prev);
+						}
+						if(!isLastPage) {
+							String 	next = "/" + collectionName + "/search?query=" + searchQuery + "&pageNo=" + (pageNo+1) + "&pageSize=" +pageSize;
+							metaData.put("next", next);
+						}
+
+			        	
+						metaData.put("pageNo", pageNo);
+						metaData.put("pageSize", pageSize);
+						metaData.put("totalPages", totalPages);
+						metaData.put("isFirstPage", isFirstPage);
+						metaData.put("isLastPage", isLastPage);
+			        }
+			        
+			        Set<String> keySet = documents.keySet();
+			        List<String> keys = new ArrayList<>(keySet);
+					for (int i = startIndex; i < endIndex && i < totalRecords; i++) {
+//			        	Map.Entry<String, Long> entry = referenceWordCountList.get(i);
+//			        	System.out.println("reference=noOfWords : "+entry);
+//			        	result.add((Map) documents.get(entry.getKey()));
+			        	
+			        	result.add((Map) documents.get(keys.get(i)));
+			        	
+			        }
+					
+					
+					
 				} else {
 
 					String[] searchWords = searchQuery.split(" ");
@@ -228,11 +283,11 @@ public class IndexerNew {
 						boolean isLastPage = endIndex >= totalRecords;
 						
 						if(!isFirstPage) {
-							String 	prev = "http://localhost:8000/" + collectionName + "/search?query=" + searchQuery + "&pageNo=" + (pageNo-1) + "&pageSize=" +pageSize;	
+							String 	prev = "/" + collectionName + "/search?query=" + searchQuery + "&pageNo=" + (pageNo-1) + "&pageSize=" +pageSize;	
 							metaData.put("prev", prev);
 						}
 						if(!isLastPage) {
-							String 	next = "http://localhost:8000/" + collectionName + "/search?query=" + searchQuery + "&pageNo=" + (pageNo+1) + "&pageSize=" +pageSize;
+							String 	next = "/" + collectionName + "/search?query=" + searchQuery + "&pageNo=" + (pageNo+1) + "&pageSize=" +pageSize;
 							metaData.put("next", next);
 						}
 

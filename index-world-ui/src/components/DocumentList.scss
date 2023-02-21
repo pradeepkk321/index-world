@@ -1,0 +1,119 @@
+.DocumentList {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    background-color: #E6EEF3;
+    // background-color: #CBE5F1;
+    // padding: 0px 10px;
+    // grid-column-gap: 20px;
+
+    .document-list-search-bar {
+        grid-column: span 2;
+        padding: 20px;
+
+        input[type=search] {
+            border-color: #386f8b;
+            padding: 10px 30px;
+            margin:10px;
+            border-radius: 50px;
+            font-size:large;
+
+          }
+
+          .search-button {
+            border-color: #E6EEF3;
+            background-color: #274E61;
+            color: #fff;
+            padding: 10px 15px;
+            margin:10px;
+            border-radius: 50px;
+            font-size:large;
+          }
+
+          .search-select {
+            border-color: #274E61;
+            background-color: #fff;
+            color: #274E61;
+            padding: 10px 15px;
+            margin:10px;
+            border-radius: 50px;
+            font-size:large;
+          }
+
+          .page-button {
+            border-color: #E6EEF3;
+            background-color: #274E61;
+            color: #fff;
+            padding: 5px 10px;
+            margin:10px;
+            border-radius: 7px;
+            font-size:small;
+          }
+
+          .page-button-disabled {
+            border-color: #274E61;
+            background-color: #aeb9b997;
+            color: #274E61;
+            padding: 5px 10px;
+            margin:10px;
+            border-radius: 7px;
+            font-size:small;
+          }
+    }
+
+    .document-list-col-1 {
+        padding: 0px 20px;
+        overflow: hidden; 
+    }
+
+    .document-list-col-2{
+        overflow: hidden; 
+    }
+
+    .document-list-title {
+        padding: 20px 0px;
+        // border-bottom: 1px solid #0b9bbc ;
+    }
+
+    .document-panel {
+        padding: 10px;
+        // margin: 10px;
+        // background-color: white;
+
+        ol {
+            list-style-type: none;
+        }
+
+        ol li {
+            padding: 5px 20px;
+            font-size: smaller;
+        }
+
+        .document-list {
+            border-bottom: 1px solid white;
+            cursor: pointer;
+            // border-bottom: 1px solid #274E61;
+            // border: 1px solid #F2F7F9;
+
+            :hover,
+            :active {
+                border: 1px solid #F2F7F9;
+                background-color: #386f8b;
+                color: white;
+            }
+        }
+
+        .document-list-active {
+            cursor: pointer;
+            border: 1px solid #F2F7F9;
+            background-color: #274E61;
+            color: white;
+
+            :hover {
+                border: 1px solid #F2F7F9;
+                background-color: #386f8b;
+                color: white;
+            }
+        }
+    }
+
+}
