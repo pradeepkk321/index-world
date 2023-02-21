@@ -1,0 +1,7 @@
+/target
+/.project
+/.classpath
+/.settings
+/backup
+/bin/src/main/java/com/pk/indexworld/*.class
+/bin
